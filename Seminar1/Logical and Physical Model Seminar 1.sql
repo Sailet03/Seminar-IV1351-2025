@@ -19,7 +19,7 @@ ALTER TABLE Course ADD CONSTRAINT PK_Course PRIMARY KEY (Code);
 
 CREATE TABLE Department (
  DepartmentName CHAR(50) NOT NULL,
- EmpoyeID CHAR(10) NOT NULL
+ ManagerID CHAR(10)
 );
 
 ALTER TABLE Department ADD CONSTRAINT PK_Department PRIMARY KEY (DepartmentName);
@@ -61,9 +61,9 @@ ALTER TABLE Person ADD CONSTRAINT PK_Person PRIMARY KEY (PersonalNumber);
 CREATE TABLE PlannedActivities (
  ActivityID INT NOT NULL,
  Type CHAR(50) NOT NULL,
- Hours INT NOT NULL,
+ Hours INT,
  CourseInstanceID INT NOT NULL,
- EmpoyeID CHAR(10) NOT NULL
+ EmpoyeID CHAR(10)
 );
 
 ALTER TABLE PlannedActivities ADD CONSTRAINT PK_PlannedActivities PRIMARY KEY (ActivityID);
@@ -77,7 +77,7 @@ CREATE TABLE Titles (
 ALTER TABLE Titles ADD CONSTRAINT PK_Titles PRIMARY KEY (EmpoyeID,TitleDesignation);
 
 
-ALTER TABLE Department ADD CONSTRAINT FK_Department_0 FOREIGN KEY (EmpoyeID) REFERENCES Employees (EmpoyeID);
+ALTER TABLE Department ADD CONSTRAINT FK_Department_0 FOREIGN KEY (ManagerID) REFERENCES Employees (EmpoyeID);
 
 
 ALTER TABLE Employees ADD CONSTRAINT FK_Employees_0 FOREIGN KEY (PersonalNumber) REFERENCES Person (PersonalNumber);
