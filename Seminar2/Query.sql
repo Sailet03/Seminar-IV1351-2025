@@ -89,7 +89,6 @@ i.Period,
 p.Name,
 t.TitleDesignation
 ORDER BY
-p.Name,
 i.StudyYear;
 
 --3. Calculate total alocated hours for a teacher
@@ -126,7 +125,7 @@ FROM CourseLayout c
     JOIN Person p ON e.PersonID = p.PersonID
 
 
-WHERE p.Name = 'Frank Miller' --Decides what teacher to filter for
+WHERE p.Name = 'Frank Miller' AND i.StudyYear = '2024' --Decides what teacher and year to filter for
 
 GROUP BY
 c.Code,
@@ -139,3 +138,32 @@ p.Name
 ORDER BY
 p.Name,
 i.StudyYear;
+
+
+--4. List employee ids and names of all teachers who are alocated in more than a specific number of instances during the current period.
+
+
+SELECT e.EmpoyeID AS "Employment ID", p.Name AS "Teacher's Name", i.Period As "Period", COUNT(DISTINCT pa.CourseInstanceID) AS "No of Courses"
+FROM Employees e
+JOIN Person p ON p.PersonID = e.PersonID
+JOIN EmployeesPlannedActivities epa ON e.EmpoyeID = epa.EmpoyeID
+JOIN PlannedActivities pa ON epa.ActivityID = pa.ActivityID
+JOIN Instance i ON pa.CourseInstanceID = i.InstanceID
+
+WHERE i.Period = 'P1'
+
+GROUP BY p.Name,e.EmpoyeID,i.Period;
+
+
+
+
+
+
+SELECT *
+FROM Employees e
+JOIN Person p ON p.PersonID = e.PersonID
+JOIN EmployeesPlannedActivities epa ON e.EmpoyeID = epa.EmpoyeID
+JOIN PlannedActivities pa ON epa.ActivityID = pa.ActivityID
+JOIN Instance i ON pa.CourseInstanceID = i.InstanceID;
+
+WHERE p.Name = 'Alice Johnson' AND i.Period = 'P1'
