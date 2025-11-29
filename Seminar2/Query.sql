@@ -149,21 +149,10 @@ JOIN Person p ON p.PersonID = e.PersonID
 JOIN EmployeesPlannedActivities epa ON e.EmpoyeID = epa.EmpoyeID
 JOIN PlannedActivities pa ON epa.ActivityID = pa.ActivityID
 JOIN Instance i ON pa.CourseInstanceID = i.InstanceID
-
 WHERE i.Period = 'P1'
-
 GROUP BY p.Name,e.EmpoyeID,i.Period;
 
 
 
 
 
-
-SELECT *
-FROM Employees e
-JOIN Person p ON p.PersonID = e.PersonID
-JOIN EmployeesPlannedActivities epa ON e.EmpoyeID = epa.EmpoyeID
-JOIN PlannedActivities pa ON epa.ActivityID = pa.ActivityID
-JOIN Instance i ON pa.CourseInstanceID = i.InstanceID;
-
-WHERE p.Name = 'Alice Johnson' AND i.Period = 'P1'
