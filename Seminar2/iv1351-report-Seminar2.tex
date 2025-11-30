@@ -67,7 +67,7 @@ Consider the following:
 
 \textbf{This chapter tells \textit{what} are you going to do.} 
 
-For this seminar the task is to design OLAP queries. These should run on a database Designed for a university. These queries should do 
+For this seminar the task is to design OLAP queries. These should run on a database Designed for a university.
 
 \section{Literature Study}
 
@@ -85,9 +85,13 @@ Explain how you worked when solving the tasks and how you evaluated that your so
 
 \textbf{The report must show that you have done the work yourself and that you have understood what you have done}, both of these goals are met by carefully explaining your solution here in the result chapter, and proving that it meets the requirements. \textit{State each requirement that is met} and explain \textit{how you met it}. Also include links to your code in your Git repository, and include also diagrams, see Figure \ref{fig:diag}, and other figures to illustrate your reasoning. All figures must be referenced in the text. Ask yourself if the solution is clearly explained, and if the reader will understand the application. What would you yourself want to know if you read about the application, is that included in the report? More specific instructions for the content can be found under each task on the Project page in Canvas. 
 
+\textbf{Number one: Planned hours calculations} will calculate a breakdown of all the hours needed for every course instance for a given year. First the querie will join the CourseLayout, Instance, PlannedActivities and ActivityType to get all the required information. Since the hours are stored with the only difference being the type we need to do some math to separate the different activity types into separate columns. This is done by using SUM together with WHERE to sum together all activities of the same type into  a value that can be showed in a column. The GROUP BY statement ensures that everything belonging to the same instance is treated together and the WHERE ensures that only the specified year is shown.
+
+
+
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[scale=0.6]{ER Diagram0.jpg}
+    \includegraphics[scale=0.2]{ER Diagram0.jpg}
     \caption{A sample diagram, included to illustrate caption (this text), numbering and reference in text.}
     \label{fig:diag}
   \end{center}

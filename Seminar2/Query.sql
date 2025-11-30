@@ -30,6 +30,8 @@ FROM CourseLayout c
     JOIN PlannedActivities pa ON pa.CourseInstanceID = i.InstanceID
     JOIN ActivityType a ON pa.Type = a.Name
 
+WHERE i.StudyYear = '2024'
+
 GROUP BY
 c.Code,
 i.StudyYear,
