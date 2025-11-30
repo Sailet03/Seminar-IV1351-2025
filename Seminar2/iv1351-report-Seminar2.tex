@@ -7,6 +7,8 @@
 \usepackage{wrapfig}
 \usepackage{fancyvrb}
 \usepackage{fancyhdr}
+\usepackage{hyperref}
+
 \pagestyle{fancy}
 
 % Create header and footer
@@ -85,14 +87,64 @@ Explain how you worked when solving the tasks and how you evaluated that your so
 
 \textbf{The report must show that you have done the work yourself and that you have understood what you have done}, both of these goals are met by carefully explaining your solution here in the result chapter, and proving that it meets the requirements. \textit{State each requirement that is met} and explain \textit{how you met it}. Also include links to your code in your Git repository, and include also diagrams, see Figure \ref{fig:diag}, and other figures to illustrate your reasoning. All figures must be referenced in the text. Ask yourself if the solution is clearly explained, and if the reader will understand the application. What would you yourself want to know if you read about the application, is that included in the report? More specific instructions for the content can be found under each task on the Project page in Canvas. 
 
-\textbf{Number one: Planned hours calculations} will calculate a breakdown of all the hours needed for every course instance for a given year. First the querie will join the CourseLayout, Instance, PlannedActivities and ActivityType to get all the required information. Since the hours are stored with the only difference being the type we need to do some math to separate the different activity types into separate columns. This is done by using SUM together with WHERE to sum together all activities of the same type into  a value that can be showed in a column. The GROUP BY statement ensures that everything belonging to the same instance is treated together and the WHERE ensures that only the specified year is shown.
 
+The queries are stored as Query.sql in \href{https://github.com/Sailet03/Seminar-IV1351-2025/tree/main/Seminar2}{github.com/Sailet03/Seminar-IV1351-2025}.
+
+\textbf{Number one: Planned hours calculations} will calculate a breakdown of all the hours needed for every course instance for a given year. First the query will join the CourseLayout, Instance, PlannedActivities and ActivityType to get all the required information. Since the hours are stored with the only difference being the type we need to do some math to separate the different activity types into separate columns. This is done by using SUM together with WHERE to sum together all activities of the same type into  a value that can be showed in a column. The GROUP BY statement ensures that everything belonging to the same instance is treated together and the WHERE ensures that only the specified year is shown. Here is the output of the query.
+
+
+\begin{table}[h]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllllllllllll}
+\hline
+Course Code & Course Instance ID & HP & Period & \# Students & Lecture Hours & Tutorial Hours & Lab Hours & Seminar Hours & Other Overhead Hours & Admin & Exam & Total Hours \\ \hline
+CS101 & 2024-1 & 7 & P1 & 30 & 137 & 34 & 53 & 24 & 9 & 88 & 108 & 453 \\
+MA201 & 2024-2 & 5 & P2 & 25 & 169 & 42 & 70 & 30 & 11 & 80 & 100 & 502 \\
+PH110 & 2024-3 & 10 & P3 & 40 & 137 & 34 & 55 & 24 & 9 & 100 & 122 & 481 \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+
+\textbf{Number two: Calculate actual allocated hours for a course} will break down how much time is allocated to per employee for a specific course instance. This query works mostly the same since most of the columns are the same. Since it required more information than number one it also had to JOIN the EmployeesPlannedActivities, Employees, Titles and Person. The WHERE statement ensures that the correct course instance is selected. The GROUP By statement is ensuring that the employees are grouped together.
+
+\begin{table}[h]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllllllllllll}
+\hline
+Course Code & Course Instance ID & HP & Teacher's Name & Designation & Lecture Hours & Tutorial Hours & Lab Hours & Seminar Hours & Other Overhead Hours & Admin & Exam & Total Hours \\ \hline
+CS101 & 2024-1 & 7 & Alice Johnson & Assistant Professor & 0 & 0 & 24 & 0 & 5 & 0 & 0 & 29 \\
+CS101 & 2024-1 & 7 & Bob Smith & Associate Professor & 0 & 0 & 29 & 0 & 4 & 0 & 0 & 33 \\
+CS101 & 2024-1 & 7 & Frank Miller & Lecturer & 72 & 0 & 0 & 11 & 0 & 0 & 54 & 137 \\
+CS101 & 2024-1 & 7 & Grace Lee & Senior Lecturer & 65 & 0 & 0 & 13 & 0 & 0 & 54 & 132 \\
+CS101 & 2024-1 & 7 & Hannah Kim & Lecturer & 0 & 16 & 0 & 0 & 0 & 44 & 0 & 60 \\
+CS101 & 2024-1 & 7 & Ian Clark & Lab Assistant & 0 & 18 & 0 & 0 & 0 & 44 & 0 & 62 \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+\textbf{Number three: Calculate the total allocated hours for a teacher, only for the current years’ course instances } is also similar to the first 2 questions. The query gets the hours that are assigned to a specific employee for all course instances in a certain year. Here The WHERE statement filters on year and name of an employee. The rows are grouped by the teacher name and year.
+
+\begin{table}[h]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llllllllllll}
+\hline
+Course Code & Course Instance ID & HP & Teacher's Name & Lecture Hours & Tutorial Hours & Lab Hours & Seminar Hours & Other Overhead Hours & Admin & Exam & Total Hours \\ \hline
+CS101 & | 2024-1 & 7 & Frank Miller & 72 & 0 & 0 & 11 & 0 & 0 & 54 & 137 \\
+MA201 & | 2024-2 & 5 & Frank Miller & 0 & 20 & 0 & 0 & 0 & 40 & 0 & 60 \\
+PH110 & | 2024-3 & 10 & Frank Miller & 0 & 0 & 29 & 0 & 4 & 0 & 0 & 33
+\end{tabular}%
+}
+\end{table}
+
+
+\textbf{Number four: List employee ids and names of all teachers who are allocated in more than a specific number of course instances during the current period} shows all the employees that have more than  
 
 
 \begin{figure}[h!]
   \begin{center}
     \includegraphics[scale=0.2]{ER Diagram0.jpg}
-    \caption{A sample diagram, included to illustrate caption (this text), numbering and reference in text.}
+    \caption{Database schema}
     \label{fig:diag}
   \end{center}
 \end{figure}

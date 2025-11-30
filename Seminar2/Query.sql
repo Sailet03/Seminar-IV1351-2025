@@ -78,8 +78,7 @@ FROM CourseLayout c
     JOIN Titles t ON e.EmpoyeID = t.EmpoyeID
     JOIN Person p ON e.PersonID = p.PersonID
 
-
-WHERE c.Code = 'CS101' --Decides what course to filter for
+WHERE i.InstanceID = 1 --Decides what course istance to filter for
 
 GROUP BY
 c.Code,
@@ -145,16 +144,13 @@ i.StudyYear;
 --4. List employee ids and names of all teachers who are alocated in more than a specific number of instances during the current period.
 
 
-SELECT e.EmpoyeID AS "Employment ID", p.Name AS "Teacher's Name", i.Period As "Period", COUNT(DISTINCT pa.CourseInstanceID) AS "No of Courses"
+SELECT e.EmpoyeID AS "Employment ID", p.Name AS "Teacher's Name", i.Period As "Period", COUNT(DISTINCT pa.CourseInstanceID) FILTER (WHERE i.StudyYear = '2024') AS "No of Courses"
 FROM Employees e
 JOIN Person p ON p.PersonID = e.PersonID
 JOIN EmployeesPlannedActivities epa ON e.EmpoyeID = epa.EmpoyeID
 JOIN PlannedActivities pa ON epa.ActivityID = pa.ActivityID
 JOIN Instance i ON pa.CourseInstanceID = i.InstanceID
-WHERE i.Period = 'P1'
-GROUP BY p.Name,e.EmpoyeID,i.Period;
-
-
-
-
+WHERE i.Period = 'P1' --AND i.StudyYear = '2025'
+GROUP BY p.Name,e.EmpoyeID,i.Period
+HAVING COUNT(DISTINCT pa.CourseInstanceID) FILTER (WHERE i.StudyYear = '2024') > 0;
 
