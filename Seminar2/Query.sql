@@ -143,7 +143,6 @@ i.StudyYear;
 
 --4. List employee ids and names of all teachers who are alocated in more than a specific number of instances during the current period.
 
-
 SELECT e.EmpoyeID AS "Employment ID", p.Name AS "Teacher's Name", i.Period As "Period", COUNT(DISTINCT pa.CourseInstanceID) FILTER (WHERE i.StudyYear = '2024') AS "No of Courses"
 FROM Employees e
 JOIN Person p ON p.PersonID = e.PersonID
