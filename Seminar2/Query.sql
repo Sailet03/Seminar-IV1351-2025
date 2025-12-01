@@ -150,7 +150,7 @@ JOIN Person p ON p.PersonID = e.PersonID
 JOIN EmployeesPlannedActivities epa ON e.EmpoyeID = epa.EmpoyeID
 JOIN PlannedActivities pa ON epa.ActivityID = pa.ActivityID
 JOIN Instance i ON pa.CourseInstanceID = i.InstanceID
-WHERE i.Period = 'P1' --AND i.StudyYear = '2025'
+WHERE i.Period = 'P1' 
 GROUP BY p.Name,e.EmpoyeID,i.Period
 HAVING COUNT(DISTINCT pa.CourseInstanceID) FILTER (WHERE i.StudyYear = '2024') > 0;
 
