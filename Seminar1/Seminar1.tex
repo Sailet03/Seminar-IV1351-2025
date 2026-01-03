@@ -48,21 +48,20 @@ I have done the Mandatory Part of Task 1. Logical and Physical Model. Where a mo
 
 When preparing for the project information was gathered from the digital Logical and Physical model lecture. There it showed how to create the model.
 
-
+\pagebreak
 
 
 
 \section{Method}
 
-When creating the model Astha was used. The first step was to create all the necessary tables. The next Step was to add all the attributes that are not multivariable attributes. Then Primary keys were then decided upon either a unique attribute or a surrogate key. The relations were then added for anything that were not a many-to-many relation. For any many-to-many relations a cross-reference table was added that contained the primary keys of both tables. Any multivariable attributes were then added as a separate table containing the Primary key of the original table and the attribute. After the Astah model was finished Astah was used to generate the creation script of the database. The data script was then created with a combination of online data generation and manual work.
+When creating the model Astah was used. The first step was to create all the necessary tables. The next Step was to add all the attributes that are not multivariable attributes. Then Primary keys were then decided upon either a unique attribute or a surrogate key. The relations were then added for anything that were not a many-to-many relation. For any many-to-many relations a cross-reference table was added that contained the primary keys of both tables. Any multivariable attributes were then added as a separate table containing the Primary key of the original table and the attribute. After the Astah model was finished Astah was used to generate the creation script of the database. The data script was then created with a combination of online data generation and manual work.
 
 \section{Result}
-
 
 \begin{figure}[h!]
   \begin{center}
     \includegraphics[scale=0.2]{ER Diagram0.jpg}
-    \caption{A sample diagram, included to illustrate caption (this text), numbering and reference in text.}
+    \caption{Astah diagram}
     \label{fig:diag}
   \end{center}
 \end{figure}
@@ -70,22 +69,49 @@ When creating the model Astha was used. The first step was to create all the nec
 
 The scrips and Astah are stored here: \href{https://github.com/Sailet03/Seminar-IV1351-2025/tree/main/Seminar1}{github.com/Sailet03/Seminar-IV1351-2025}.
 
-\subsection{Number one: Planned hours calculations}
+
+\subsection{Primary keys}
+Most tables will use substitute keys for there primary keys since some needed it and for consistency it was better to use them for most. All substitute primary keys are of the Postgres datatype INT GENERATED ALWAYS AS IDENTITY so that the keys are generated automatically by Postgres.
+
+\subsection{CourseLayout}
+CourseLayout contains the content of the layouts. It contains the information of every course layout. Code is not unique since there can be multiple different layouts for the same course code if the course changes after a certain year or period. CourseLayout contains the min/max amount of students, the course code, course name and HP.
+
+\subsection{Instance}
+
+Instance contains instances of every course. It contains the year and period of the instance. It also contains how many students are registered. Furthermore, it contains a Foreign key that contain what CourseLayout it is. 
+
+\subsection{PlannedActivities}
+PlannedActivities conin the all the activities that is a part of every instance. It contains how many hours the activity is going to take and what type of activity it is. 
+
+\subsection{ActivityType}
+ActivityType contains information of the existing types of activities. It also contains the multiplayer for how much extra time is required for the teachers.
+
+\subsection{Person}
+Person contains the personal information of all persons.
+
+\subsection{Employees}
+Employees contain the information about the people that work at the university. It has a relation to itself since the manager of the employee also is an employee.
+
+\subsection{Department}
+This table contains what department exists and what manager it has.
+
+\subsection{Titles}
+Titles is a multivariable attribute just in case one employee has multiple titles.
+
+\subsection{EmployeesPlannedActivities}
+EmployeesPlannedActivities is a cross-reference table that connects Employees to ActivityType since multiple employees can be a part of the same activity and every teacher can have multiple activities.
 
 
-
-
-
-\pagebreak
 
 
 
 
 \section{Discussion}
 
-\textbf{This chapter \textit{analysis} the result presented in the previous section.} 
+All the tables seem to be mostly relevant. The only exception might be the person table since it theoretically could be merged with the employee table. This would however become problematic if later another type of person would be added to the database like a student table. Then it would be much better to have the person table than to remove it. The titles' table might also be redundant if we assume that an employee can only have one title. 
 
-Evaluate your solution according to the assessment criteria found in the assessment-criteria documents, which are found under the bullet \textit{In the Discussion chapter of your report...}, under each task on the Project page in Canvas. You do not have to cover all specified criteria.
+The models seem to be in 3NF since no attribute depend on anything that is not the primary key and the there are no places where derived data is stored in the database. All the data that is required can be accessed And the crows foot notation seems to be correctly followed. 
+
 
  
 
